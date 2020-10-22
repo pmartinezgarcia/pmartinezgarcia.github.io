@@ -1,2 +1,2 @@
-# pmartinezgarcia.github.io
+# team14.github.io
 Mini Project 1
