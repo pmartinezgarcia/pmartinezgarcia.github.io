@@ -8,11 +8,11 @@
     <a href="#">Team 13 Test</a>
 </nav>
 
-<p>
+<h3>
     <form>
     <label for="sentence">Type the sentence: </label><br>
-    <input type="button" id="fname" name="fname"><br>
+    <input type="text" id="fname" name="fname"><br>
     </form>
-</p>
+</h3>
 
 </body>
