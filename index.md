@@ -11,7 +11,7 @@
 <h3>
     <form>
     <label for="sentence">Type the sentence: </label><br>
-    <input type="text" id="fname" name="fname"><br>
+    <input type="text" id="sentence" name="sentence"><br>
     </form>
 </h3>
 
