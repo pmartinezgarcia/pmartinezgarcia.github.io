@@ -10,7 +10,7 @@
 
 <h3>
     <form>
-    <label for="sentence">Type the sentence as quickly and accurately as you can: </label><br> <input type="text" style="height:100px; width:350px;" id="sentence" name="sentence"><br>
+    <label for="sentence">Type the sentence as quickly and accurately as you can: </label><br> <input type="text" style="height:50px; width:500px;" id="sentence" name="sentence"><br>
     </form>
 </h3>
 
