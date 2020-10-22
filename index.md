@@ -3,4 +3,3 @@
     <h3 align="center" style="color:black;" id="inst">Click "start" to begin a new test.</h3>
     <p align="center" style="color:black;" id="description">Total time: <span id="time">0</span>ms</p>
 </body>
-
