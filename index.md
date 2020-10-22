@@ -3,7 +3,7 @@
     <h3 align="center" style="color:black;" id="inst">Click on your team to begin a new test.</h3>
     <p align="center" style="color:black;" id="description">Total time: <span id="time">0</span>ms</p>
 
-<nava align="center">
+<nav align="center">
     <a href="#">Team 6 Test</a> |
     <a href="#">Team 13 Test</a>
 </nav>
