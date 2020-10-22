@@ -4,11 +4,9 @@
     <p align="center" style="color:black;" id="description">Total time: <span id="time">0</span>ms</p>
      
 <nav>
-  <ul>
-    <li><a href="#">Navigation</a></li>
-    <li><a href="#">Team 6 Test</a></li>
-    <li><a href="#">Team 13 Test</a></li>
-  </ul>
+  <a href="Team 6 Test">Team 6 Test</a>
+    
+  <a href="Team 13 Test">Team 13 Test</a>
 </nav>
 
 </body>
