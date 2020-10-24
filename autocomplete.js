@@ -177,7 +177,7 @@ function autocomplete2(input, map) {
                     inner.addEventListener("click", function(e) {
                         input.value = currentCursor.substr(0,currentCursor.length - currentWord.length)
                             + this.getElementsByTagName("input")[0].value
-                            + input.value.substr(currentCursor.length);
+                            + input.value.substr(currentCursor.length + 1);
                         close();
                     });
                     var xy = getCursorXY(document.getElementById("sentence"));
