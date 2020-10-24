@@ -92,7 +92,8 @@ pre {
        
       <!-- Stopwatch to time typing -->  
       <!-- source: https://stackoverflow.com/questions/56659035/creating-a-simple-stopwatch-html -->  
-      <div>Seconds: <span id="time">0</span></div>
+      <p>
+        <div>Seconds: <span id="time">0</span></div>
         <input type="button" id="startTimer" value="Start Timer" onclick="start();"><br/>
         <input type="button" id="stopTimer" value="Stop Timer"  onclick="stop();"><br/>
         <input type="button" id="resetTimer" value="Reset Timer"  onclick="reset();"><br/>
@@ -123,6 +124,7 @@ pre {
                 tick()
             }
         </script>  
+        </p>
       
    <!-- Box for typing -->
     <textarea spellcheck="false" type="text" style="height:500px; width:1000px;" id="sentence" name="sentence"></textarea>
