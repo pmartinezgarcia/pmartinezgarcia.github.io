@@ -1,5 +1,5 @@
 var options = new Map(); //(k,v) = (letter, array of strings that start w/ that letter)
-var raw = "function array_mode array_in var tally ans for push length ";
+var raw = "function array_mode array_in var tally ans for push length exclusivity_rights input const char_array split result_array indexOf lastIndexOf join";
 var optionsArray = [];
 
 function startTimer() {
@@ -148,12 +148,10 @@ function autocomplete2(input, map) {
         if (autocomplete != 0) {
             input.addEventListener("input", handleInput2);
             input.addEventListener("keydown", handleKeydown2);
-            input.addEventListener("keyup", handleKeyup2);
             input.addEventListener("keydown", handleTab2);
         } else {
             input.removeEventListener("input", handleInput2);
             input.removeEventListener("keydown", handleKeydown2);
-            input.removeEventListener("keyup", handleKeyup2);
             input.removeEventListener("keydown", handleTab2);
         }
     });
@@ -195,6 +193,7 @@ function autocomplete2(input, map) {
     }
     
     function handleKeydown2(e) {
+        cursorPosition = e.target.selectionStart + 1;
         var list = document.getElementById("list");
         var listAll;
         if (list != undefined) {
@@ -222,10 +221,6 @@ function autocomplete2(input, map) {
         } else if (e.key == "Escape") {
             close();
         }
-    }
-
-    function handleKeyup2(e) {
-        cursorPosition = e.target.selectionStart + 1;
     }
 
     function select(selections) {
