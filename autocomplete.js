@@ -239,7 +239,7 @@ function getCursorXY(input, cursor) {
     document.body.removeChild(div);
     //adjusted for box size and cursor location
     //this screws up if the window size changes i think
-    return { x: spanX, y: inputY + spanY - 1450 }
+    return { x: spanX, y: inputY + spanY - 1380 }
 }
 
 populateHashMap(raw);
