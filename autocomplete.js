@@ -57,28 +57,28 @@ function autocomplete1(input, map) {
     autocompleteSelect.addEventListener("change", function(e){
     var autocomplete = autocompleteSelect.value;
     if (autocomplete == 1) {
-        input.addEventListener("click", handleClick);
-        input.addEventListener("input", handleInput);
-        input.addEventListener("keyup", handleKeyup);
+        input.addEventListener("click", handleClick1);
+        input.addEventListener("input", handleInput1);
+        input.addEventListener("keyup", handleKeyup1);
         input.addEventListener("keydown", handleTab1);
     } else if (autocomplete == 2) {
-        input.removeEventListener("click", handleClick);
-        input.removeEventListener("input", handleInput);
-        input.removeEventListener("keyup", handleKeyup);
+        input.removeEventListener("click", handleClick1);
+        input.removeEventListener("input", handleInput1);
+        input.removeEventListener("keyup", handleKeyup1);
         input.removeEventListener("keydown", handleTab1);
     }
     });
 
-    function handleClick(currentClick) {
+    function handleClick1(currentClick) {
         currentSelection = -1;
         updateText();
     }
 
-    function handleInput(currentInput) {
+    function handleInput1(currentInput) {
         updateText();
     }
 
-    function handleKeyup(currentKeyup) {
+    function handleKeyup1(currentKeyup) {
         if (currentKeyup.key != "Tab") {
             updateText();
         }
@@ -92,7 +92,8 @@ function autocomplete1(input, map) {
         }
         let text = input.value;
 
-        if (textBefore[textBefore.length - 1] === ' ' || (textAfter && textAfter[0] !== ' ')) {
+        if (textBefore[textBefore.length - 1] === ' ' || (textAfter && 
+            (textAfter[0] !== ' ' && textAfter[0] !== '\n'))) {
             return null;
         }
         return textBefore.split(/[ \n\t,(){};\[\]<>=+".]/).pop();
@@ -139,23 +140,25 @@ function autocomplete2(input, map) {
     var currentSelection;
     var cursorPosition = 0;
 
+    var autocomplete = 0;
+
     var autocompleteSelect = document.getElementById("autocomplete-select");
     autocompleteSelect.addEventListener("change", function(e){
-    var autocomplete = autocompleteSelect.value;
-    if (autocomplete == 2) {
-        input.addEventListener("input", handleInput);
-        input.addEventListener("keydown", handleKeydown);
-        input.addEventListener("keyup", handleKeyup);
-        input.addEventListener("keydown", handleTab2);
-    } else if (autocomplete == 1) {
-        input.removeEventListener("input", handleInput);
-        input.removeEventListener("keydown", handleKeydown);
-        input.removeEventListener("keyup", handleKeyup);
-        input.removeEventListener("keydown", handleTab2);
-    }
+        autocomplete = autocompleteSelect.value;
+        if (autocomplete != 0) {
+            input.addEventListener("input", handleInput2);
+            input.addEventListener("keydown", handleKeydown2);
+            input.addEventListener("keyup", handleKeyup2);
+            input.addEventListener("keydown", handleTab2);
+        } else {
+            input.removeEventListener("input", handleInput2);
+            input.removeEventListener("keydown", handleKeydown2);
+            input.removeEventListener("keyup", handleKeyup2);
+            input.removeEventListener("keydown", handleTab2);
+        }
     });
 
-    function handleInput(e){
+    function handleInput2(e){
         //console.log(this.value.split(/ |\n|,|\(|\)|\{|\}|\;/));
         var currentCursor = this.value.substr(0, cursorPosition);
         var currentWord = currentCursor.split(/[ \n\t,(){};\[\]<>=+".]/).pop();
@@ -191,7 +194,7 @@ function autocomplete2(input, map) {
         }
     }
     
-    function handleKeydown(e) {
+    function handleKeydown2(e) {
         var list = document.getElementById("list");
         var listAll;
         if (list != undefined) {
@@ -199,14 +202,14 @@ function autocomplete2(input, map) {
         } else {
             return;
         }
-        if (e.key == "ArrowUp") {
+        if (e.key == "ArrowUp" && autocomplete == 2) {
             if (currentSelection <= 0) {
                 currentSelection = listAll.length - 1;
             } else {
                 currentSelection--;
             }
             select(listAll);
-        } else if (e.key == "ArrowDown") {
+        } else if ((e.key == "ArrowDown" && autocomplete == 2) || (e.key == "Tab" && autocomplete == 1)) {
             if (currentSelection >= listAll.length -1) {
                 currentSelection = 0;
             } else {
@@ -221,8 +224,7 @@ function autocomplete2(input, map) {
         }
     }
 
-    input.addEventListener("keyup", handleKeyup);
-    function handleKeyup(e) {
+    function handleKeyup2(e) {
         cursorPosition = e.target.selectionStart + 1;
     }
 
@@ -255,10 +257,11 @@ function autocomplete2(input, map) {
             e.preventDefault();
             var start = this.selectionStart;
             var end = this.selectionEnd;
-            this.value = this.value.substring(0, start) + "\t" + this.value.substring(end);
-    
-            this.selectionStart = start + 1;
-            this.selectionEnd = start + 1;
+            if (autocomplete === 2) {
+                this.value = this.value.substring(0, start) + "\t" + this.value.substring(end);
+                this.selectionStart = start + 1;
+                this.selectionEnd = start + 1;
+            }
         }
     }
 }
@@ -285,5 +288,4 @@ function getCursorXY(input, cursor) {
 
 populateHashMap(raw);
 populateOptionsArray(raw);
-autocomplete1(document.getElementById("sentence"), options);
-autocomplete2(document.getElementById("sentence"), options);
+autocomplete2(document.getElementById("sentence"), searchArray);
