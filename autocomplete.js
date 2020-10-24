@@ -1,5 +1,5 @@
 var options = new Map(); //(k,v) = (letter, array of strings that start w/ that letter)
-var raw = "function array_mode array_in var tally ans for push length ";
+var raw = "function array_mode array_in var tally ans for push length exclusivity_rights input const char_array split result_array indexOf lastIndexOf join";
 var optionsArray = [];
 
 function startTimer() {
