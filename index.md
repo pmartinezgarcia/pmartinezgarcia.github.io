@@ -1,49 +1,36 @@
 <style>
-* {
-  box-sizing: border-box;
-}
-
 body {
   font: 16px Arial;  
 }
 
-/*the container must be positioned relative:*/
-.autocomplete {
-  position: relative;
-  display: inline-block;
-}
-
-.autocomplete-items {
+.list-elements {
   position: absolute;
-  border: 1px solid #d4d4d4;
   border-bottom: none;
   border-top: none;
-  z-index: 99;
   top: 100%;
   left: 0;
   right: 0;
 }
 
-.autocomplete-items div {
+.list-elements div {
   padding: 1px;
-  cursor: pointer;
-  background-color: #fff; 
-  border-bottom: 1px solid #d4d4d4; 
+  background-color: #fff;
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
   font-size: 12px;
 }
 
-/*when hovering an item:*/
-.autocomplete-items div:hover {
-  background-color: #e9e9e9; 
+.list-elements div:hover {
+  background-color: DodgerBlue;
+  color: #ffffff;
 }
 
-/*when navigating through the items using the arrow keys:*/
-.autocomplete-active {
-  background-color: DodgerBlue !important; 
-  color: #ffffff; 
+.selection {
+  background-color: Blue !important;
+  color: #ffffff;
 }
 
-textarea,
+textarea, /* for tab chars */
 pre {
     -moz-tab-size : 4;
       -o-tab-size : 4;

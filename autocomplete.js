@@ -17,6 +17,7 @@ function populateHashMap() {
 }
 
 //currently returns all options that start with the correct character
+//probably not that useful
 function searchHashTable(str) {
     return options.get(str.charAt(0));
 }
@@ -28,16 +29,17 @@ function autocomplete1() {
 
 //arrow keys through separate div boxes
 function autocomplete2(input, map) {
-    var current;
+    var currentSelection;
     input.addEventListener("input", function(e){
-        var currentWord = this.value.split(" ").pop();
-        var currentSelection = -1;
+        //console.log(this.value.split(/ |\n|,|\(|\)|\{|\}|\;/));
+        var currentWord = this.value.split(/[ \n\t,(){};\[\]<>=+".]/).pop();
+        currentSelection = -1;
         var currentOptions = options.get(currentWord.charAt(0));
         var outer = document.createElement("DIV");
-        closeAllLists();
+        close();
         this.parentNode.appendChild(outer);
-        outer.setAttribute("id", this.id + "autocomplete-list");
-        outer.setAttribute("class", "autocomplete-items");
+        outer.setAttribute("id", "list");
+        outer.setAttribute("class", "list-elements");
         var inner;
         if (currentOptions != undefined){
             var displayIndex = 0;
@@ -47,80 +49,86 @@ function autocomplete2(input, map) {
                     inner.innerHTML = currentOptions[i];
                     inner.innerHTML += "<input type='hidden' value='" + currentOptions[i] + "'>";
                     inner.addEventListener("click", function(e) {
-                        input.value = this.getElementsByTagName("input")[0].value;
-                        closeAllLists();
+                        input.value = input.value.substr(0,input.value.length - currentWord.length)
+                            + this.getElementsByTagName("input")[0].value;
+                        close();
                     });
                     var xy = getCursorXY(document.getElementById("sentence"));
                     inner.style.position = "absolute";
                     inner.style.left = xy.x + "px";
-                    inner.style.top = (xy.y + (15*displayIndex)) + "px";
+                    inner.style.top = (xy.y + (16*displayIndex)) + "px";
                     displayIndex++;
                     outer.appendChild(inner);
                 }
             }
         }
     });
-    function closeAllLists(elmnt) {
-         var autocompleteList = document.getElementsByClassName(
-            "autocomplete-items"
-         );
+
+    input.addEventListener("keydown", function(e) {
+        var listAll = document.getElementById("list").getElementsByTagName("DIV");
+        if (e.key == "ArrowUp") {
+            if (currentSelection <= 0) {
+                currentSelection = listAll.length - 1;
+            } else {
+                currentSelection--;
+            }
+            select(listAll);
+        } else if (e.key == "ArrowDown") {
+            if (currentSelection >= listAll.length -1) {
+                currentSelection = 0;
+            } else {
+                currentSelection++;
+            }
+            select(listAll);
+        } else if (e.key == "Enter" && currentSelection != -1) {
+            e.preventDefault();
+            listAll[currentSelection].click();
+        } else if (e.key == "Escape") {
+            close();
+        }
+    });
+
+    function select(selections) {
+        if (selections != undefined) {
+            unselect(selections);
+            selections[currentSelection].classList.add("selection");
+        }
+    }
+
+    function unselect(selections) {
+        for (var i = 0; i < selections.length; i++) {
+            selections[i].classList.remove("selection");
+        }
+    }
+
+    function close(e) {
+         var autocompleteList = document.getElementsByClassName("list-elements");
          for (var i = 0; i < autocompleteList.length; i++) {
-            //if (elmnt != autocompleteList[i] && elmnt != searchEle) {
-               autocompleteList[i].parentNode.removeChild(autocompleteList[i]);
-            //}
+            autocompleteList[i].parentNode.removeChild(autocompleteList[i]);
          }
       }
+    
     document.addEventListener("click", function(e) {
-        closeAllLists();
+        close();
     });
 }
 
-/**
- * returns x, y coordinates for absolute positioning of a span within a given text input
- * at a given selection point
- * @param {object} input - the input element to obtain coordinates for
- * @param {number} selectionPoint - the selection point for the input
- */
-const getCursorXY = (input, selectionPoint) => {
-  const {
-    offsetLeft: inputX,
-    offsetTop: inputY,
-  } = input
-  // create a dummy element that will be a clone of our input
-  const div = document.createElement('div')
-  // get the computed style of the input and clone it onto the dummy element
-  const copyStyle = getComputedStyle(input)
-  for (const prop of copyStyle) {
-    div.style[prop] = copyStyle[prop]
-  }
-  // we need a character that will replace whitespace when filling our dummy element if it's a single line <input/>
-  const swap = '.'
-  const inputValue = input.tagName === 'INPUT' ? input.value.replace(/ /g, swap) : input.value
-  // set the div content to that of the textarea up until selection
-  const textContent = inputValue.substr(0, selectionPoint)
-  // set the text content of the dummy element div
-  div.textContent = textContent
-  if (input.tagName === 'TEXTAREA') div.style.height = 'auto'
-  // if a single line input then the div needs to be single line and not break out like a text area
-  if (input.tagName === 'INPUT') div.style.width = 'auto'
-  // create a marker element to obtain caret position
-  const span = document.createElement('span')
-  // give the span the textContent of remaining content so that the recreated dummy element is as close as possible
-  span.textContent = inputValue.substr(selectionPoint) || '.'
-  // append the span marker to the div
-  div.appendChild(span)
-  // append the dummy element to the body
-  document.body.appendChild(div)
-  // get the marker position, this is the caret position top and left relative to the input
-  const { offsetLeft: spanX, offsetTop: spanY } = span
-  // lastly, remove that dummy element
-  // NOTE:: can comment this out for debugging purposes if you want to see where that span is rendered
-  document.body.removeChild(div)
-  // return an object with the x and y of the caret. account for input positioning so that you don't need to wrap the input
-  return {
-    x: inputX + spanX,
-    y: inputY - 490 //adjusted for box size
-  }
+function getCursorXY(input, cursor) {
+    var { offsetLeft: inputX, offsetTop: inputY } = input;
+    var div = document.createElement("DIV");
+    var style = getComputedStyle(input);
+    for (var p of style) {
+    div.style[p] = style[p];
+    }
+    var span = document.createElement('span');
+    var inputValue = input.value.replace(/ /g, ".");
+    div.textContent = inputValue.substr(0, cursor);
+    span.textContent = inputValue.substr(cursor);
+    div.appendChild(span);
+    document.body.appendChild(div);
+    var { offsetLeft: spanX, offsetTop: spanY } = span;
+    document.body.removeChild(div);
+    return { x: inputX + spanX, y: inputY + spanY - 1215 } //adjusted for box size
 }
 
 document.getElementById('sentence').addEventListener('keydown', function(e) {
