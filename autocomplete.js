@@ -2,6 +2,9 @@ var options = new Map(); //(k,v) = (letter, array of strings that start w/ that 
 var raw = "function array_mode array_in var tally ans for push length ";
 var optionsArray = [];
 
+function startTimer() {
+
+}
 
 //populates hash map with arrays of strings that start with the same letter
 function populateHashMap(inputs) {
@@ -52,6 +55,7 @@ function autocomplete1(input, map) {
 
     input.addEventListener("click", handleClick);
     input.addEventListener("input", handleInput);
+    input.addEventListener("keyup", handleKeyup);
 
     function handleClick(currentClick) {
         currentSelection = -1;
@@ -60,6 +64,12 @@ function autocomplete1(input, map) {
 
     function handleInput(currentInput) {
         updateText();
+    }
+
+    function handleKeyup(currentKeyup) {
+        if (currentKeyup.key != "Tab") {
+            updateText();
+        }
     }
 
     function getCurrentWord() {
@@ -81,9 +91,12 @@ function autocomplete1(input, map) {
         let currentWord = getCurrentWord();
         if (currentWord) {
             let currentOptions = searchArray(currentWord);
+            console.log("Before:", textBefore);
             insertedText = currentOptions[currentSelection % currentOptions.length].substring(currentWord.length);
             input.value = textBefore + insertedText + textAfter;
-            input.selectionStart += insertedText.length;
+            console.log("Inserted: ", insertedText);
+            input.selectionStart = textBefore.length + insertedText.length;
+            input.selectionEnd = textBefore.length + insertedText.length;
         }
     }
 
