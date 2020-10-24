@@ -48,8 +48,24 @@ pre {
       <option value="2">arrow select</option>
     </select>
     <br>
-    <label for="sentence">Type the sentence as quickly and accurately as you can: </label>
+    <label for="sentence">Type the following code as quickly and accurately as you can: </label>
     <br>
+      <p>Code Template 1</p>
+      <p>function array_mode(array_in) {
+  var tally = [],
+    ans = 0;
+
+  for(var i = 0; i < 10; i++) {
+    tally.push(0);
+  }
+  for(var i = 0; i < array_in.length; i++) {
+    tally[array_in[i]]++;
+    if(tally[array_in[i]] > tally[ans]) {
+      ans = array_in[i];
+    }
+  }
+  return ans;  
+        }</p>
     <textarea spellcheck="false" type="text" style="height:500px; width:1000px;" id="sentence" name="sentence"></textarea>
     <script src="autocomplete.js"></script>
     </form>
