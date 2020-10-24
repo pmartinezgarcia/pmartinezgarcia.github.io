@@ -1,9 +1,12 @@
 var options = new Map(); //(k,v) = (letter, array of strings that start w/ that letter)
+var raw = "function array_mode array_in var tally ans for push length ";
+var optionsArray = [];
+
 
 //populates hash map with arrays of strings that start with the same letter
-function populateHashMap() {
+function populateHashMap(inputs) {
     //will change this once we have the template
-    let raw = "function array_mode array_in var tally ans for push length "
+    let raw = inputs;
     let text = raw.split(" ");
     for (var i = 0; i < text.length; i++) {
         let word = text[i];
@@ -22,8 +25,90 @@ function searchHashTable(str) {
     return options.get(str.charAt(0));
 }
 
+function populateOptionsArray(inputs) {
+    let raw = inputs;
+    let text = raw.split(" ");
+    for (var i = 0; i < text.length; i++) {
+        optionsArray.push(text[i]);
+    }
+}
+
+function searchArray(str) {
+    var matches = [];
+    for (var i = 0; i < optionsArray.length; i++) {
+        if (optionsArray[i].substring(0, str.length) === str) {
+            matches.push(optionsArray[i]);
+        }
+    }
+    return matches;
+}
+
 //tab through options, enter to confirm
-function autocomplete1() {
+function autocomplete1(input, map) {
+    let insertedText = "";
+    let currentSelection = -1;
+    let textBefore;
+    let textAfter;
+
+    input.addEventListener("click", handleClick);
+    input.addEventListener("input", handleInput);
+
+    function handleClick(currentClick) {
+        currentSelection = -1;
+        updateText();
+    }
+
+    function handleInput(currentInput) {
+        updateText();
+    }
+
+    function getCurrentWord() {
+        let startPosition = input.selectionStart;
+        let endPosition = input.selectionEnd;
+        if (startPosition !== endPosition) {
+            return null;
+        }
+        let text = input.value;
+
+        if (textBefore[textBefore.length - 1] === ' ' || (textAfter && textAfter[0] !== ' ')) {
+            return null;
+        }
+        return textBefore.split(/[ \n\t,(){};\[\]<>=+".]/).pop();
+
+    }
+
+    function displaySelection() {
+        let currentWord = getCurrentWord();
+        if (currentWord) {
+            let currentOptions = searchArray(currentWord);
+            insertedText = currentOptions[currentSelection % currentOptions.length].substring(currentWord.length);
+            input.value = textBefore + insertedText + textAfter;
+            input.selectionStart += insertedText.length;
+        }
+    }
+
+    function updateText() {
+        textBefore = input.value.substring(0, input.selectionStart);
+        textAfter = input.value.substring(input.selectionStart);
+        insertedText = "";
+        currentSelection = -1;
+    }
+
+    document.getElementById("sentence").addEventListener("keydown", function(e) {
+        if (e.key == "Tab") {
+            e.preventDefault();
+            var start = this.selectionStart;
+            var end = this.selectionEnd;
+            if (getCurrentWord()) {
+                currentSelection = currentSelection + 1;
+                displaySelection();
+            } else {
+                this.value = this.value.substring(0, start) + "\t" + this.value.substring(end);
+                this.selectionStart = start + 1;
+                this.selectionEnd = start + 1;
+            }
+        }
+    });
 
 }
 
@@ -124,6 +209,18 @@ function autocomplete2(input, map) {
     input.addEventListener("keyup", e => {
         cursorPosition = e.target.selectionStart + 1;
     })
+
+    document.getElementById("sentence").addEventListener("keydown", function(e) {
+        if (e.key == "Tab") {
+            e.preventDefault();
+            var start = this.selectionStart;
+            var end = this.selectionEnd;
+            this.value = this.value.substring(0, start) + "\t" + this.value.substring(end);
+    
+            this.selectionStart = start + 1;
+            this.selectionEnd = start + 1;
+        }
+    });
 }
 
 function getCursorXY(input, cursor) {
@@ -146,17 +243,7 @@ function getCursorXY(input, cursor) {
     return { x: spanX - 2, y: inputY + spanY - 1405 }
 }
 
-document.getElementById("sentence").addEventListener("keydown", function(e) {
-    if (e.key == "Tab") {
-        e.preventDefault();
-        var start = this.selectionStart;
-        var end = this.selectionEnd;
-        this.value = this.value.substring(0, start) + "\t" + this.value.substring(end);
-
-        this.selectionStart = start + 1;
-        this.selectionEnd = start + 1;
-    }
-});
-
-populateHashMap();
-autocomplete2(document.getElementById("sentence"), options);
+populateHashMap(raw);
+populateOptionsArray(raw);
+autocomplete1(document.getElementById("sentence"), options);
+//autocomplete2(document.getElementById("sentence"), options);
