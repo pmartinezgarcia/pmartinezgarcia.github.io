@@ -1,7 +1,4 @@
 <style>
-body {
-  font: 16px Arial;  
-}
 
 .list-elements {
   position: absolute;
@@ -51,6 +48,7 @@ pre {
 <h3>
     <form method="post" action="/form" autocomplete="off">
     <label for="sentence">Type the sentence as quickly and accurately as you can: </label>
+    <br>
     <textarea spellcheck="false" type="text" style="height:500px; width:1000px;" id="sentence" name="sentence"></textarea>
     <script src="autocomplete.js"></script>
     </form>

@@ -128,7 +128,9 @@ function getCursorXY(input, cursor) {
     document.body.appendChild(div);
     var { offsetLeft: spanX, offsetTop: spanY } = span;
     document.body.removeChild(div);
-    return { x: inputX + spanX, y: inputY + spanY - 1215 } //adjusted for box size
+    //adjusted for box size and cursor location
+    //this screws up if the window size changes i think
+    return { x: spanX - 2, y: inputY + spanY - 1405 }
 }
 
 document.getElementById('sentence').addEventListener('keydown', function(e) {
