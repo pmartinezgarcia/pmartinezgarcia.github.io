@@ -49,7 +49,6 @@ function autocomplete1(input, map) {
     let currentSelection = -1;
     let textBefore;
     let textAfter;
-
     input.addEventListener("click", handleClick);
     input.addEventListener("input", handleInput);
 
@@ -240,10 +239,17 @@ function getCursorXY(input, cursor) {
     document.body.removeChild(div);
     //adjusted for box size and cursor location
     //this screws up if the window size changes i think
-    return { x: spanX - 2, y: inputY + spanY - 1405 }
+    return { x: spanX, y: inputY + spanY - 1450 }
 }
 
 populateHashMap(raw);
 populateOptionsArray(raw);
-autocomplete1(document.getElementById("sentence"), options);
-//autocomplete2(document.getElementById("sentence"), options);
+var autocompleteSelect = document.getElementById("autocomplete-select");
+autocompleteSelect.addEventListener("change", function(e){
+    var autocomplete = autocompleteSelect.value;
+    if (autocomplete == 1) {
+        autocomplete1(document.getElementById("sentence"), options);
+    } else if (autocomplete == 2) {
+        autocomplete2(document.getElementById("sentence"), options);
+    }
+});

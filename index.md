@@ -46,6 +46,11 @@ pre {
 
 <h3>
     <form method="post" action="/form" autocomplete="off">
+    <select id="autocomplete-select">
+      <option value="">--Please choose an option--</option>
+      <option value="1">tab select</option>
+      <option value="2">arrow select</option>
+    </select>
     <label for="sentence">Type the sentence as quickly and accurately as you can: </label>
     <br>
     <textarea spellcheck="false" type="text" style="height:500px; width:1000px;" id="sentence" name="sentence"></textarea>
