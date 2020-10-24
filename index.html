@@ -36,9 +36,7 @@ pre {
 
 <body style="background-color:#ECECE6;">
     <h1 align="center" style="color:#2A7CB9;" id="head">Code Autocomplete Tester</h1>
-    <h3 align="center" style="color:black;" id="inst">Click on your team to begin a new test.</h3>
-    <p align="center" style="color:black;" id="description">Total time: <span id="time">0</span>ms</p>
-
+    <h3 align="center" style="color:black;" id="inst">Begin the stopwatch. Type the following code as quickly and accurately as you can. Stop the watch when finished.</h3>
 
 <h3>
     <form method="post" action="/form" autocomplete="off">
@@ -47,9 +45,7 @@ pre {
       <option value="1">tab select</option>
       <option value="2">arrow select</option>
     </select>
-    <br>
-    <label for="sentence">Type the following code as quickly and accurately as you can: </label>
-    <br>
+ 
       <p>Code Template 1</p>
       <p>function array_mode(array_in) {
   var tally = [],
@@ -66,6 +62,24 @@ pre {
   }
   return ans;  
         }</p>
+      
+      
+      <p>Code Template 2</p>
+      <p>function exclusivity_rights(input) {
+  const char_array = input.split("");
+  const result_array = [];
+
+  for (let i = 0; i < char_array.length; i++) {
+    if (input.indexOf(char_array[i]) === input.lastIndexOf(char_array[i])) {
+      result_array.push(char_array[i]);
+    }
+  }
+
+  return result_array.join("");
+}</p>
+      
+      
+   
     <textarea spellcheck="false" type="text" style="height:500px; width:1000px;" id="sentence" name="sentence"></textarea>
     <script src="autocomplete.js"></script>
     </form>
