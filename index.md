@@ -4,7 +4,6 @@
   position: absolute;
   border-bottom: none;
   border-top: none;
-  top: 100%;
   left: 0;
   right: 0;
 }

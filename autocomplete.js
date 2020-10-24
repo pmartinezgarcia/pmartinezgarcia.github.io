@@ -30,9 +30,11 @@ function autocomplete1() {
 //arrow keys through separate div boxes
 function autocomplete2(input, map) {
     var currentSelection;
+    var cursorPosition = 0;
     input.addEventListener("input", function(e){
         //console.log(this.value.split(/ |\n|,|\(|\)|\{|\}|\;/));
-        var currentWord = this.value.split(/[ \n\t,(){};\[\]<>=+".]/).pop();
+        var currentCursor = this.value.substr(0, cursorPosition);
+        var currentWord = currentCursor.split(/[ \n\t,(){};\[\]<>=+".]/).pop();
         currentSelection = -1;
         var currentOptions = options.get(currentWord.charAt(0));
         var outer = document.createElement("DIV");
@@ -49,8 +51,9 @@ function autocomplete2(input, map) {
                     inner.innerHTML = currentOptions[i];
                     inner.innerHTML += "<input type='hidden' value='" + currentOptions[i] + "'>";
                     inner.addEventListener("click", function(e) {
-                        input.value = input.value.substr(0,input.value.length - currentWord.length)
-                            + this.getElementsByTagName("input")[0].value;
+                        input.value = currentCursor.substr(0,currentCursor.length - currentWord.length)
+                            + this.getElementsByTagName("input")[0].value
+                            + input.value.substr(currentCursor.length);
                         close();
                     });
                     var xy = getCursorXY(document.getElementById("sentence"));
@@ -65,7 +68,13 @@ function autocomplete2(input, map) {
     });
 
     input.addEventListener("keydown", function(e) {
-        var listAll = document.getElementById("list").getElementsByTagName("DIV");
+        var list = document.getElementById("list");
+        var listAll;
+        if (list != undefined) {
+            listAll = list.getElementsByTagName("DIV");
+        } else {
+            return;
+        }
         if (e.key == "ArrowUp") {
             if (currentSelection <= 0) {
                 currentSelection = listAll.length - 1;
@@ -111,6 +120,10 @@ function autocomplete2(input, map) {
     document.addEventListener("click", function(e) {
         close();
     });
+
+    input.addEventListener("keyup", e => {
+        cursorPosition = e.target.selectionStart + 1;
+    })
 }
 
 function getCursorXY(input, cursor) {
@@ -133,20 +146,16 @@ function getCursorXY(input, cursor) {
     return { x: spanX - 2, y: inputY + spanY - 1405 }
 }
 
-document.getElementById('sentence').addEventListener('keydown', function(e) {
-  if (e.key == 'Tab') {
-    e.preventDefault();
-    var start = this.selectionStart;
-    var end = this.selectionEnd;
+document.getElementById("sentence").addEventListener("keydown", function(e) {
+    if (e.key == "Tab") {
+        e.preventDefault();
+        var start = this.selectionStart;
+        var end = this.selectionEnd;
+        this.value = this.value.substring(0, start) + "\t" + this.value.substring(end);
 
-    // set textarea value to: text before caret + tab + text after caret
-    this.value = this.value.substring(0, start) +
-      "\t" + this.value.substring(end);
-
-    // put caret at right position again
-    this.selectionStart =
-      this.selectionEnd = start + 1;
-  }
+        this.selectionStart = start + 1;
+        this.selectionEnd = start + 1;
+    }
 });
 
 populateHashMap();
