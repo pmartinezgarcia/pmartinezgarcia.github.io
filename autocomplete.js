@@ -177,7 +177,7 @@ function autocomplete2(input, map) {
                     inner.addEventListener("click", function(e) {
                         input.value = currentCursor.substr(0,currentCursor.length - currentWord.length)
                             + this.getElementsByTagName("input")[0].value
-                            + input.value.substr(currentCursor.length + 1);
+                            + input.value.substr(currentCursor.length);
                         close();
                     });
                     var xy = getCursorXY(document.getElementById("sentence"));
@@ -192,6 +192,7 @@ function autocomplete2(input, map) {
     }
     
     function handleKeydown(e) {
+        cursorPosition = e.target.selectionStart + 1;
         var list = document.getElementById("list");
         var listAll;
         if (list != undefined) {
@@ -219,11 +220,6 @@ function autocomplete2(input, map) {
         } else if (e.key == "Escape") {
             close();
         }
-    }
-
-    input.addEventListener("keyup", handleKeyup);
-    function handleKeyup(e) {
-        cursorPosition = e.target.selectionStart + 1;
     }
 
     function select(selections) {
