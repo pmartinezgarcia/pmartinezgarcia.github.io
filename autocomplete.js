@@ -3,7 +3,8 @@ var options = new Map(); //(k,v) = (letter, array of strings that start w/ that 
 //populates hash map with arrays of strings that start with the same letter
 function populateHashMap() {
     //will change this once we have the template
-    let text = "abc abcdef def hij klm nop".split(" ");
+    let raw = "function array_mode array_in var tally ans for push length "
+    let text = raw.split(" ");
     for (var i = 0; i < text.length; i++) {
         let word = text[i];
         let wordArr = options.get(word.charAt(0));
