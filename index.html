@@ -50,6 +50,40 @@ pre {
         
       </p>
       
+      <!-- Stopwatch to time typing -->  
+      <!-- source: https://stackoverflow.com/questions/56659035/creating-a-simple-stopwatch-html -->  
+        <div>Seconds: <span id="time">0</span></div>
+        <input type="button" id="startTimer" value="Start Timer" onclick="start();"><br/>
+        <input type="button" id="stopTimer" value="Stop Timer"  onclick="stop();"><br/>
+        <input type="button" id="resetTimer" value="Reset Timer"  onclick="reset();"><br/>
+        <script>
+            var timeElapsed = 0;
+            var timerID = -1;
+            function tick() {
+                timeElapsed++
+                document.getElementById("time").innerHTML = timeElapsed;
+            }
+
+            function start() {
+                if(timerID == -1){
+                    timerID = setInterval(tick, 1000);
+                }
+            }
+
+            function stop() {
+                if(timerID != -1){
+                    clearInterval(timerID)
+                    timerID = -1
+                }
+            }
+
+            function reset() {
+                stop();
+                timeElapsed = -1;
+                tick()
+            }
+        </script>  
+      
       <!-- Code templates -->
       <div style="float:left">
       <h4 style="color:darkgreen">Code Template 1</h4>
@@ -89,42 +123,7 @@ pre {
 }</code>
       </pre>
       </div>
-       
-      <!-- Stopwatch to time typing -->  
-      <!-- source: https://stackoverflow.com/questions/56659035/creating-a-simple-stopwatch-html -->  
-      <p>
-        <div>Seconds: <span id="time">0</span></div>
-        <input type="button" id="startTimer" value="Start Timer" onclick="start();"><br/>
-        <input type="button" id="stopTimer" value="Stop Timer"  onclick="stop();"><br/>
-        <input type="button" id="resetTimer" value="Reset Timer"  onclick="reset();"><br/>
-        <script>
-            var timeElapsed = 0;
-            var timerID = -1;
-            function tick() {
-                timeElapsed++
-                document.getElementById("time").innerHTML = timeElapsed;
-            }
-
-            function start() {
-                if(timerID == -1){
-                    timerID = setInterval(tick, 1000);
-                }
-            }
-
-            function stop() {
-                if(timerID != -1){
-                    clearInterval(timerID)
-                    timerID = -1
-                }
-            }
-
-            function reset() {
-                stop();
-                timeElapsed = -1;
-                tick()
-            }
-        </script>  
-        </p>
+        
       
    <!-- Box for typing -->
     <textarea spellcheck="false" type="text" style="height:500px; width:1000px;" id="sentence" name="sentence"></textarea>
