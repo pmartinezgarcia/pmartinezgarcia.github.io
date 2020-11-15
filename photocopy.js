@@ -1,0 +1,29 @@
+function pressNumPad(num) {
+    let current = document.getElementById("accountid").value
+    if (current.length == 4) {
+        switch (num) {
+            case -1: document.getElementById("accountid").value = current.slice(0, -1);
+                    break;
+            case -2: window.location.href = "options.html";
+                    break;
+        }
+        return;
+    }
+    switch (num) {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 0: document.getElementById("accountid").value = current + num;
+                break;
+        case -1: document.getElementById("accountid").value = current.slice(0, -1);
+                break;
+        case -2: window.location.href = "options.html";
+                break;
+    }
+}
