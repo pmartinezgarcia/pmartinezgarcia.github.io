@@ -1,4 +1,7 @@
 <style>
+  * {
+    box-sizing: border-box;
+  }
   .numpad {
     background-color: #4CAF50; /* Green */
     border: none;
@@ -11,23 +14,42 @@
     width: 75px;
     margin-top: 5px
   }
+  .column {
+    float: left;
+    width: 20%;
+    padding: 10px;
+  }
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 </style>
-<input id="accountid" type="number">
-<br><br>
+<div class="row">
+  <div class="column">
+    <h1>PHOTOCOPIER</h1>
+    <img src="copier_images/copier_initial.png">
+  </div>
+  <div class="column">
+    <h2>Please Enter Your Account ID</h2>
+    <input id="accountid" type="number">
+    <br><br>
 
-<input class="numpad" type="button" value="7" onclick="pressNumPad(7)">
-<input class="numpad" type="button" value="8" onclick="pressNumPad(8)">
-<input class="numpad" type="button" value="9" onclick="pressNumPad(9)">
-<br>
-<input class="numpad" type="button" value="4" onclick="pressNumPad(4)">
-<input class="numpad" type="button" value="5" onclick="pressNumPad(5)">
-<input class="numpad" type="button" value="6" onclick="pressNumPad(6)">
-<br>
-<input class="numpad" type="button" value="1" onclick="pressNumPad(1)">
-<input class="numpad" type="button" value="2" onclick="pressNumPad(2)">
-<input class="numpad" type="button" value="3" onclick="pressNumPad(3)">
-<br>
-<input class="numpad" type="button" value="←" onclick="pressNumPad(-1)">
-<input class="numpad" type="button" value="0" onclick="pressNumPad(0)">
-<input class="numpad" type="button" value="→" onclick="pressNumPad(-2)">
-<script src="photocopy.js"></script>
+    <input class="numpad" type="button" value="7" onclick="pressNumPad(7)">
+    <input class="numpad" type="button" value="8" onclick="pressNumPad(8)">
+    <input class="numpad" type="button" value="9" onclick="pressNumPad(9)">
+    <br>
+    <input class="numpad" type="button" value="4" onclick="pressNumPad(4)">
+    <input class="numpad" type="button" value="5" onclick="pressNumPad(5)">
+    <input class="numpad" type="button" value="6" onclick="pressNumPad(6)">
+    <br>
+    <input class="numpad" type="button" value="1" onclick="pressNumPad(1)">
+    <input class="numpad" type="button" value="2" onclick="pressNumPad(2)">
+    <input class="numpad" type="button" value="3" onclick="pressNumPad(3)">
+    <br>
+    <input class="numpad" type="button" value="←" onclick="pressNumPad(-1)">
+    <input class="numpad" type="button" value="0" onclick="pressNumPad(0)">
+    <input class="numpad" type="button" value="→" onclick="pressNumPad(-2)">
+    <script src="photocopy.js"></script>
+  </div>
+</div>
