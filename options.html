@@ -76,6 +76,8 @@
       background-color: white;
       color: black;
       padding: 3px;
+      height: 20px;
+      width: 20px;
       font-size: 14px;
       cursor: pointer;
     }
@@ -256,17 +258,21 @@
             }
           }
         </script>
-
+        <label id="sides">
+          Select:
+        </label>
         <div class="dropdown">
-          <button onclick="myFunction3()" class="dropbtn">Select</button>
+          <button onclick="myFunction3()" class="dropbtn"> </button>
           <div id="myDropdown3" class="dropdown-content">
             <script>
               function oneSide() {
                 sessionStorage.input_sidedness = 1;
+                document.getElementById('sides').innerHTML = 'One Side';
               }
 
               function twoSide() {
                 sessionStorage.input_sidedness = 2;
+                document.getElementById('sides').innerHTML = 'Two Sides';
               }
             </script>
             <a onclick="oneSide()">One Side</a>
@@ -278,7 +284,7 @@
     </td>
   </tr>
   <tr>
-    <td>Bin:</td>
+    <td>Paper Source:</td>
     <td>
       <div id="bin_txt">
         <script>
@@ -288,20 +294,26 @@
             document.getElementById("myDropdown4").classList.toggle("show");
           }
         </script>
+        <label id="bin">
+          Select:
+        </label>
         <div class="dropdown">
-          <button onclick="myFunction4()" class="dropbtn">Select</button>
+          <button onclick="myFunction4()" class="dropbtn"> </button>
           <div id="myDropdown4" class="dropdown-content">
             <script>
               function TrayA() {
                 sessionStorage.current_bin = "A";
+                document.getElementById('bin').innerHTML = 'Tray A';
               }
 
               function TrayB() {
                 sessionStorage.current_bin = "B";
+                document.getElementById('bin').innerHTML = 'Tray B';
               }
 
               function TrayC() {
                 sessionStorage.current_bin = "C";
+                document.getElementById('bin').innerHTML = 'Tray C';
               }
             </script>
             <a onclick="TrayA()">Tray A</a>
@@ -324,27 +336,34 @@
             document.getElementById("myDropdown5").classList.toggle("show");
           }
         </script>
+        <label id="sep">
+          Select:
+        </label>
         <div class="dropdown">
-          <button onclick="myFunction5()" class="dropbtn">Select</button>
+          <button onclick="myFunction5()" class="dropbtn"> </button>
           <div id="myDropdown5" class="dropdown-content">
             <script>
               function None() {
                 sessionStorage.separator_page = false;
+                document.getElementById('sep').innerHTML = 'None';
               }
 
               function Tray_A() {
                 sessionStorage.separator_page = true;
                 sessionStorage.separator_bin = "A";
+                document.getElementById('sep').innerHTML = 'Tray A';
               }
 
               function Tray_B() {
                 sessionStorage.separator_page = true;
                 sessionStorage.separator_bin = "B";
+                document.getElementById('sep').innerHTML = 'Tray B';
               }
 
               function Tray_C() {
                 sessionStorage.separator_page = true;
                 sessionStorage.separator_bin = "C";
+                document.getElementById('sep').innerHTML = 'Tray C';
               }
             </script>
             <a onclick="None()">None</a>
