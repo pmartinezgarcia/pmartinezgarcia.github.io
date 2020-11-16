@@ -24,6 +24,10 @@
     display: table;
     clear: both;
   }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
 </style>
 <div class="row">
   <div class="column">
@@ -32,7 +36,7 @@
   </div>
   <div class="column">
     <h2>Please Enter Your Account ID</h2>
-    <input id="accountid" type="number">
+    <input id="accountid" type="number" onKeyDown="return false">
     <br><br>
 
     <input class="numpad" type="button" value="7" onclick="pressNumPad(7)">
@@ -50,6 +54,8 @@
     <input class="numpad" type="button" value="←" onclick="pressNumPad(-1)">
     <input class="numpad" type="button" value="0" onclick="pressNumPad(0)">
     <input class="numpad" type="button" value="→" onclick="pressNumPad(-2)">
+    <br>
+    <p id="error"></p>
     <script src="photocopy.js"></script>
   </div>
 </div>
