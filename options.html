@@ -262,10 +262,11 @@
           <div id="myDropdown3" class="dropdown-content">
             <script>
               function oneSide() {
-                sessionStorage.input_sidedness=1;
+                sessionStorage.input_sidedness = 1;
               }
+
               function twoSide() {
-                sessionStorage.input_sidedness=2;
+                sessionStorage.input_sidedness = 2;
               }
             </script>
             <a onclick="oneSide()">One Side</a>
@@ -290,9 +291,22 @@
         <div class="dropdown">
           <button onclick="myFunction4()" class="dropbtn">Select</button>
           <div id="myDropdown4" class="dropdown-content">
-            <a>Tray A</a>
-            <a>Tray B</a>
-            <a>Tray C</a>
+            <script>
+              function TrayA() {
+                sessionStorage.current_bin = "A";
+              }
+
+              function TrayB() {
+                sessionStorage.current_bin = "B";
+              }
+
+              function TrayC() {
+                sessionStorage.current_bin = "C";
+              }
+            </script>
+            <a onclick="TrayA()">Tray A</a>
+            <a onclick="TrayB()">Tray B</a>
+            <a onclick="TrayC()">Tray C</a>
           </div>
         </div><br>
       </div>
@@ -313,10 +327,30 @@
         <div class="dropdown">
           <button onclick="myFunction5()" class="dropbtn">Select</button>
           <div id="myDropdown5" class="dropdown-content">
-            <a>None</a>
-            <a>Tray A</a>
-            <a>Tray B</a>
-            <a>Tray C</a>
+            <script>
+              function None() {
+                sessionStorage.separator_page = false;
+              }
+
+              function Tray_A() {
+                sessionStorage.separator_page = true;
+                sessionStorage.separator_bin = "A";
+              }
+
+              function Tray_B() {
+                sessionStorage.separator_page = true;
+                sessionStorage.separator_bin = "B";
+              }
+
+              function Tray_C() {
+                sessionStorage.separator_page = true;
+                sessionStorage.separator_bin = "C";
+              }
+            </script>
+            <a onclick="None()">None</a>
+            <a onclick="Tray_A()">Tray A</a>
+            <a onclick="Tray_B()">Tray B</a>
+            <a onclick="Tray_C()">Tray C</a>
           </div>
         </div><br>
       </div>
