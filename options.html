@@ -113,10 +113,12 @@
 
     .show {
       display: block;
+
     }
 
     td {
       text-align: center;
+
     }
 
     img {
@@ -127,8 +129,9 @@
     th,
     td {
       border: 1px solid;
-      width: 200px;
-      height: 100px;
+      width: 600px;
+      height: 75px;
+      box-align: center;
     }
 
     button {
@@ -141,7 +144,7 @@
 <body>
   <h1>Copier Settings</h1>
   <hr>
-  <div style="float:left" id="settings">
+  <div style="float: right" id="settings">
     <table style="width:70%;border: 1px solid black">
       <tr>
         <th colspan="2">Select Proper Settings</th>
@@ -187,8 +190,9 @@
           </script>
 
           <form>
+            <br>
             <input id="accountid" type="number" onKeyDown="return false">
-
+            <br>
             <input class="numpad" type="button" value="7" onclick="pressNumPad(7)">
             <input class="numpad" type="button" value="8" onclick="pressNumPad(8)">
             <input class="numpad" type="button" value="9" onclick="pressNumPad(9)">
