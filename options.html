@@ -260,8 +260,16 @@
         <div class="dropdown">
           <button onclick="myFunction3()" class="dropbtn">Select</button>
           <div id="myDropdown3" class="dropdown-content">
-            <a>One Side</a>
-            <a>Two Sides</a>
+            <script>
+              function oneSide() {
+                sessionStorage.input_sidedness=1;
+              }
+              function twoSide() {
+                sessionStorage.input_sidedness=2;
+              }
+            </script>
+            <a onclick="oneSide()">One Side</a>
+            <a onclick="twoSide()">Two Sides</a>
           </div>
         </div><br>
       </div>
