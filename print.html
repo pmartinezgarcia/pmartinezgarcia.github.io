@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            td {
+              text-align: center;
+            }
+            img {
+                width: 30%;
+            }
+            table, th, td {
+              border: 1px solid black
+            }
+            button {
+                padding: 15px;
+            }
+        </style>
+        <title>Print/Preview Page</title>
+    </head>
+
+    <body>
+        <h1>Scan Document</h1>
+        <hr>
+        <div style="float:left" id="settings">
+            <table style="width:70%;border: 1px solid black">
+              <tr>
+                <th colspan="2">Current Settings</th>
+              </tr>
+              <tr>
+                <td># Copies:</td>
+                <td>
+                    <div id="num_copies">
+                    1
+                    </div>
+                  </td>
+              </tr>
+              <tr>
+                <td>Brightness:</td>
+                <td>
+                    <div id="brightness_txt">
+                        Normal<br>
+                    </div>
+                    <img src="images/copier images/singside_norm.png" id="brightness_img">
+                </td>
+              </tr>
+              <tr>
+                <td>Input Sidedness:</td>
+                <td>
+                    <div id="input_sidedness_txt">
+                        Single Sided<br>
+                    </div>
+                    <img src="images/copier images/singside_norm.png" id="input_sidedness_img">
+                  </td>
+              </tr>
+              <tr>
+                <td>Output Sidedness:</td>
+                <td>
+                    <div id="output_sidedness_txt">
+                        Single Sided<br>
+                    </div>
+                    <img src="images/copier images/singside_norm.png" id="output_sidedness_img">
+                  </td>
+              </tr>
+              <tr>
+                <td># Sides Per Page:</td>
+                <td>
+                    <div id="output_sides_txt">
+                        One Side<br>
+                    </div>
+                    <img src="images/copier images/singside_norm.png" id="output_sides_img">
+                  </td>
+              </tr>
+              <tr>
+                <td>Bin:</td>
+                <td>
+                    <div id="bin_txt">
+                        Tray A<br>
+                    </div>
+                    <img src="images/copier images/copier_trayA.png" id="bin_img">
+                  </td>
+              </tr>
+              <tr>
+                <td>Separator Page:</td>
+                  <td>
+                      <div id="separator_page_txt">
+                          None
+                      </div>
+                      <img src="" id="separator_page_img">
+                  </td>
+              </tr>
+            </table>
+        </div>
+        <div style="text-align: center; vertical-align: center;">
+            <img src="images/preview images/page00.png" alt="Please place your documents on the scanner and press scan to begin.">
+        </div>
+        <div>
+            <table style="width:100%">
+                <tr>
+                    <td>
+                        <button type="button" id="scan">Scan</button>
+                    </td>
+                    <td>
+                        <button type="button" id="settings">Settings</button>
+                    </td>
+                    <td>
+                        <button type="button" id="print">Print</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script src="photocopy.js"></script>
+    </body>
+</html>
