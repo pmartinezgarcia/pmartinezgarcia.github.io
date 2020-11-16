@@ -230,6 +230,7 @@
           output.innerHTML = slider.value;
           slider.oninput = function () {
             output.innerHTML = this.value;
+            sessionStorage.brightness = this.value;
           }
         </script>
         <img src="images/copier images/singside_norm.png" id="brightness_img">
