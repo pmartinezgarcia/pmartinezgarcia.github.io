@@ -4,7 +4,7 @@ function pressNumPad(num) {
     switch (num) {
       case -1: document.getElementById("accountid").value = current.slice(0, -1);
       break;
-      case -2: window.location.href = "options.html";
+      case -2: window.location.href = "print.html"; //subject to change
       break;
     }
     return;
