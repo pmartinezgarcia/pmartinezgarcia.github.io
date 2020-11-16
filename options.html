@@ -187,7 +187,7 @@
                   window.location.href = "print.html"; // subject to change
                   break;
               }
-              sessionStorage.brightness = document.getElementById("accountid").value;
+              sessionStorage.num_copies = document.getElementById("accountid").value;
             }
           </script>
 
@@ -404,7 +404,7 @@
           <button type="button" id="settings">Settings</button>
         </td>
         <td>
-          <button type="button" id="print">Print</button>
+          <button type="button" id="print" onclick="location.href='print.html'">Print</button>
         </td>
       </tr>
     </table>
