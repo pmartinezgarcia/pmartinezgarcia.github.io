@@ -75,16 +75,16 @@ if (!sessionStorage.separator_bin) {
 }
 
 if (!sessionStorage.input_sidedness) {
-    sessionStorage.input_sidedness = 0;
+    sessionStorage.input_sidedness = "1 -> 1";
 }
 
-if (!sessionStorage.output_sidedness) {
-    sessionStorage.output_sidedness = 0;
-}
+//if (!sessionStorage.output_sidedness) {
+//    sessionStorage.output_sidedness = 0;
+//}
 
-if (!sessionStorage.output_sides) {
-    sessionStorage.output_sides = 0;
-}
+//if (!sessionStorage.output_sides) {
+//    sessionStorage.output_sides = 0;
+//}
 
 var scanButton = document.getElementById("scan");
 scanButton.addEventListener("click", displayPrintSettings);
