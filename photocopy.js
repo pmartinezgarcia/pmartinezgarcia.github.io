@@ -34,25 +34,59 @@ function pressNumPad(num) {
   }
 }
 
-function displayPreview(numPages, imageFolder, pagesPerSide) {
-    return;
-}
+function onScanClick() {
 
-function displayPrintSettings() {
-    
-    var brightnessTxtElement = document.getElementById("brightness_txt");
-    
-    if (sessionStorage.brightness == 0) {
-        brightnessTxtElement.innerHTML = "Normal";
-    } else if (sessionStorage.brightness == -1) {
-        brightnessTxtElement.innerHTML = "Dark";
-    } else if (sessionStorage.brightness == 1) {
-        brightnessTxtElement.innerHTML = "Bright";
+    initPreview();
 
+    sessionStorage.pages_scanned = parseInt(sessionStorage.pages_scanned) + parseInt(sessionStorage.input_sidedness);
+    sessionStorage.current_page = sessionStorage.pages_scanned;
+    if (sessionStorage.pages_scanned > 6) {
+        sessionStorage.pages_scanned = 6;
     }
-    return;
+
+    updatePreview();
+    
 }
 
+function updatePreview() {
+    let preview_img = document.getElementById("preview_image");
+    preview_img.src = `images/preview_images/page0${sessionStorage.current_page}.png`;
+    preview_img.style = `filter: brightness(${parseInt(sessionStorage.brightness) + 50}%)`
+    document.getElementById("current_page").textContent = `Page ${sessionStorage.current_page} of ${sessionStorage.pages_scanned}`
+}
+
+function initPreview() {
+    let preview_element = document.getElementById("preview_pane");
+    if (!document.getElementById("preview_image")) {
+        let preview_img = document.createElement("IMG");
+        preview_img.id = "preview_image";
+        preview_element.insertBefore(preview_img, preview_element.lastChild);
+        sessionStorage.pages_scanned = 0;
+        let prev_button = document.createElement("BUTTON");
+        prev_button.type = "button";
+        prev_button.id = "prev_page";
+        prev_button.textContent = "Previous Page";
+        prev_button.addEventListener("click", function (e){
+            if (sessionStorage.current_page > 1) {
+                sessionStorage.current_page = parseInt(sessionStorage.current_page) - 1;
+                updatePreview();
+            }
+        })
+        document.getElementById("prev_button").appendChild(prev_button);
+        let next_button = document.createElement("BUTTON");
+        next_button.type = "button";
+        next_button.id = "next_page";
+        next_button.textContent = "Next Page";
+        next_button.addEventListener("click", function (e){
+            if (sessionStorage.current_page < sessionStorage.pages_scanned) {
+                sessionStorage.current_page = parseInt(sessionStorage.current_page) + 1;
+                updatePreview();
+            }
+        })
+        document.getElementById("next_button").appendChild(next_button);
+        sessionStorage.current_page = 1;
+    }
+}
 
 if (!sessionStorage.brightness) {
     sessionStorage.brightness = 50;
@@ -71,7 +105,7 @@ if (!sessionStorage.separator_page) {
 }
 
 if (!sessionStorage.separator_bin) {
-    sessionStorage.separator_bin = "A";
+    sessionStorage.separator_bin = "None";
 }
 
 if (!sessionStorage.input_sidedness) {
@@ -82,8 +116,20 @@ if (!sessionStorage.output_sidedness) {
    sessionStorage.output_sidedness = 1;
 }
 
+if (!sessionStorage.pages_scanned) {
+    sessionStorage.pages_scanned = 0;
+}
+
+if (!sessionStorage.current_page) {
+    sessionStorage.current_page = 0;
+}
+
 var scanButton = document.getElementById("scan");
-scanButton.addEventListener("click", displayPrintSettings);
+scanButton.addEventListener("click", onScanClick);
+var printButton = document.getElementById("print");
+printButton.addEventListener("click", function (e) {
+    confirm("Are you sure you would like to print?");
+});
 
 function previewImages() {
   let brightnessImage = "images/copier_images/singside_norm.png";
@@ -130,10 +176,29 @@ function previewImages() {
     separatorImage = "images/copier_images/copier_trayC.png";
   }
 
+  function sideText(text) {
+      if (text == 1) {
+          return "Single-sided";
+      } else if (text == 2) {
+          return "Double-sided";
+      } else {
+          return "Invalid";
+      }
+  }
+
   document.getElementById("num_copies").innerHTML = sessionStorage.num_copies;
+  document.getElementById("brightness_txt").innerHTML = `${sessionStorage.brightness}%`;
   document.getElementById("brightness_img").src = brightnessImage;
+  document.getElementById("input_sidedness_txt").innerHTML = sideText(sessionStorage.input_sidedness);
   document.getElementById("input_sidedness_img").src = inputImage;
+  document.getElementById("output_sidedness_txt").innerHTML = sideText(sessionStorage.output_sidedness);
   document.getElementById("output_sidedness_img").src = outputImage;
+  document.getElementById("bin_txt").innerHTML = `Tray ${sessionStorage.current_bin}`;
   document.getElementById("bin_img").src = binImage;
+  if (sessionStorage.separator_bin == "None") {
+    document.getElementById("separator_page_txt").textContent = "None";
+  } else {
+    document.getElementById("separator_page_txt").textContent = `Tray ${sessionStorage.separator_bin}`;
+  }
   document.getElementById("separator_page_img").src = separatorImage;
 }
