@@ -2,13 +2,15 @@
 // maximum of 4 digits at a time
 // -1 is backspace, -2 is enter
 function pressNumPad(num) {
-  document.getElementById("error").innerHTML = "";
+  if(document.getElementById("error") != null) {
+    document.getElementById("error").innerHTML = "";
+  }
   let current = document.getElementById("accountid").value
   if (current.length == 4) {
     switch (num) {
       case -1: document.getElementById("accountid").value = current.slice(0, -1);
       break;
-      case -2: window.location.href = "print.html"; //subject to change
+      case -2: window.location.href = "options.html"; //subject to change
       break;
     }
     return;
