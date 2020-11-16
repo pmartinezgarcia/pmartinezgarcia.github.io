@@ -1,3 +1,6 @@
+// appends a number to a textbox called "accountid"
+// maximum of 4 digits at a time
+// -1 is backspace, -2 is enter
 function pressNumPad(num) {
   let current = document.getElementById("accountid").value
   if (current.length == 4) {
