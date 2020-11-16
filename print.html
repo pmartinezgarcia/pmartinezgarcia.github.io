@@ -61,7 +61,7 @@
                     <img src="images/copier_images/singside_norm.png" id="output_sidedness_img">
                   </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td># Sides Per Page:</td>
                 <td>
                     <div id="output_sides_txt">
@@ -69,7 +69,7 @@
                     </div>
                     <img src="images/copier_images/singside_norm.png" id="output_sides_img">
                   </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td>Bin:</td>
                 <td>
@@ -91,7 +91,7 @@
             </table>
         </div>
         <div style="text-align: center; vertical-align: center;">
-            <img src="images/preview images/page00.png" alt="Please place your documents on the scanner and press scan to begin.">
+            Please place your documents on the scanner and press scan to begin.
         </div>
         <div>
             <table style="width:100%">
@@ -100,7 +100,7 @@
                         <button type="button" id="scan">Scan</button>
                     </td>
                     <td>
-                        <button type="button" id="settings">Settings</button>
+                        <button type="button" id="settings" onclick="location.href='options.html'">Settings</button>
                     </td>
                     <td>
                         <button type="button" id="print">Print</button>
@@ -109,5 +109,6 @@
             </table>
         </div>
         <script src="photocopy.js"></script>
+        <script>previewImages()</script>
     </body>
 </html>

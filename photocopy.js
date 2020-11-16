@@ -55,7 +55,7 @@ function displayPrintSettings() {
 
 
 if (!sessionStorage.brightness) {
-    sessionStorage.setItem("brightness", 0);
+    sessionStorage.brightness = 50;
 }
 
 if (!sessionStorage.current_bin) {
@@ -75,16 +75,65 @@ if (!sessionStorage.separator_bin) {
 }
 
 if (!sessionStorage.input_sidedness) {
-    sessionStorage.input_sidedness = "1 -> 1";
+    sessionStorage.input_sidedness = 1;
 }
 
-//if (!sessionStorage.output_sidedness) {
-//    sessionStorage.output_sidedness = 0;
-//}
-
-//if (!sessionStorage.output_sides) {
-//    sessionStorage.output_sides = 0;
-//}
+if (!sessionStorage.output_sidedness) {
+   sessionStorage.output_sidedness = 1;
+}
 
 var scanButton = document.getElementById("scan");
 scanButton.addEventListener("click", displayPrintSettings);
+
+function previewImages() {
+  let brightnessImage = "images/copier_images/singside_norm.png";
+  let inputImage = "images/copier_images/singside_norm.png";
+  let outputImage = "images/copier_images/singside_norm.png";
+  let binImage = "images/copier_images/copier_trayA.png";
+  let separatorImage = "";
+  if (sessionStorage.brightness > 66) {
+    brightnessImage = "images/copier_images/singside_dark.png";
+    inputImage = "images/copier_images/singside_dark.png";
+    outputImage = "images/copier_images/singside_dark.png";
+  } else if (sessionStorage.brightness < 33) {
+    brightnessImage = "images/copier_images/singside_bright.png";
+    inputImage = "images/copier_images/singside_bright.png";
+    outputImage = "images/copier_images/singside_bright.png";
+  } else {
+     brightnessImage = "images/copier_images/singside_norm.png";
+     inputImage = "images/copier_images/singside_norm.png";
+     outputImage = "images/copier_images/singside_norm.png";
+  }
+
+  if (sessionStorage.input_sidedness == 2) {
+    inputImage = "images/copier_images/doubleside.png";
+  }
+
+  if (sessionStorage.output_sidedness == 2) {
+    outputImage = "images/copier_images/doubleside.png";
+  }
+
+  if (sessionStorage.current_bin == "B") {
+    binImage = "images/copier_images/copier_trayB.png";
+  } else if (sessionStorage.current_bin == "C") {
+    binImage = "images/copier_images/copier_trayC.png";
+  }
+
+  if (sessionStorage.separator_bin == "A") {
+    console.log("sep page A");
+    separatorImage = "images/copier_images/copier_trayA.png";
+  } else if (sessionStorage.separator_bin == "B") {
+    console.log("sep page B");
+    separatorImage = "images/copier_images/copier_trayB.png";
+  } else if (sessionStorage.separator_bin == "C") {
+    console.log("sep page C");
+    separatorImage = "images/copier_images/copier_trayC.png";
+  }
+
+  document.getElementById("num_copies").innerHTML = sessionStorage.num_copies;
+  document.getElementById("brightness_img").src = brightnessImage;
+  document.getElementById("input_sidedness_img").src = inputImage;
+  document.getElementById("output_sidedness_img").src = outputImage;
+  document.getElementById("bin_img").src = binImage;
+  document.getElementById("separator_page_img").src = separatorImage;
+}

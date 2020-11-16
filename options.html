@@ -154,7 +154,7 @@
         <td>Number of Copies:</td>
         <td>
           <script>
-            function pressNumPad(num) {
+            function pressNumPadCopies(num) {
               let current = document.getElementById("accountid").value
               if (current.length == 4) {
                 switch (num) {
@@ -165,6 +165,7 @@
                     window.location.href = "print.html"; //subject to change
                     break;
                 }
+                sessionStorage.num_copies = document.getElementById("accountid").value;
                 return;
               }
               switch (num) {
@@ -183,9 +184,6 @@
                 case -1:
                   document.getElementById("accountid").value = current.slice(0, -1);
                   break;
-                case -2:
-                  window.location.href = "print.html"; // subject to change
-                  break;
               }
               sessionStorage.num_copies = document.getElementById("accountid").value;
             }
@@ -195,20 +193,20 @@
             <br>
             <input id="accountid" type="number" onKeyDown="return false">
             <br>
-            <input class="numpad" type="button" value="7" onclick="pressNumPad(7)">
-            <input class="numpad" type="button" value="8" onclick="pressNumPad(8)">
-            <input class="numpad" type="button" value="9" onclick="pressNumPad(9)">
+            <input class="numpad" type="button" value="7" onclick="pressNumPadCopies(7)">
+            <input class="numpad" type="button" value="8" onclick="pressNumPadCopies(8)">
+            <input class="numpad" type="button" value="9" onclick="pressNumPadCopies(9)">
             <br>
-            <input class="numpad" type="button" value="4" onclick="pressNumPad(4)">
-            <input class="numpad" type="button" value="5" onclick="pressNumPad(5)">
-            <input class="numpad" type="button" value="6" onclick="pressNumPad(6)">
+            <input class="numpad" type="button" value="4" onclick="pressNumPadCopies(4)">
+            <input class="numpad" type="button" value="5" onclick="pressNumPadCopies(5)">
+            <input class="numpad" type="button" value="6" onclick="pressNumPadCopies(6)">
             <br>
-            <input class="numpad" type="button" value="1" onclick="pressNumPad(1)">
-            <input class="numpad" type="button" value="2" onclick="pressNumPad(2)">
-            <input class="numpad" type="button" value="3" onclick="pressNumPad(3)">
+            <input class="numpad" type="button" value="1" onclick="pressNumPadCopies(1)">
+            <input class="numpad" type="button" value="2" onclick="pressNumPadCopies(2)">
+            <input class="numpad" type="button" value="3" onclick="pressNumPadCopies(3)">
             <br>
-            <input class="numpad" type="button" value="←" onclick="pressNumPad(-1)">
-            <input class="numpad" type="button" value="0" onclick="pressNumPad(0)">
+            <input class="numpad" type="button" value="←" onclick="pressNumPadCopies(-1)">
+            <input class="numpad" type="button" value="0" onclick="pressNumPadCopies(0)">
 
           </form>
           <br>
@@ -233,9 +231,16 @@
           slider.oninput = function () {
             output.innerHTML = this.value;
             sessionStorage.brightness = this.value;
+            if (this.value > 66) {
+              document.getElementById("brightness_img").src = "images/copier_images/singside_dark.png"
+            } else if (this.value < 33) {
+              document.getElementById("brightness_img").src = "images/copier_images/singside_bright.png"
+            } else {
+              document.getElementById("brightness_img").src = "images/copier_images/singside_norm.png"
+            }
           }
         </script>
-        <img src="images/copier images/singside_norm.png" id="brightness_img">
+        <img src="images/copier_images/singside_norm.png" id="brightness_img">
     </td>
   </tr>
   <tr>
@@ -269,23 +274,35 @@
           <div id="myDropdown3" class="dropdown-content">
             <script>
               function oneToOne() {
-                sessionStorage.input_sidedness = '1 -> 1';
+                sessionStorage.input_sidedness = '1';
+                sessionStorage.output_sidedness = '1';
                 document.getElementById('sides').innerHTML = '1 -> 1';
+                document.getElementById('input_sides_img').src = "images/copier_images/singside_norm.png"
+                document.getElementById('output_sides_img').src = "images/copier_images/singside_norm.png"
               }
 
               function twoToOne() {
-                sessionStorage.input_sidedness = '2 -> 1';
+                sessionStorage.input_sidedness = '2';
+                sessionStorage.output_sidedness = '1';
                 document.getElementById('sides').innerHTML = '2 -> 1';
+                document.getElementById('input_sides_img').src = "images/copier_images/doubleside.png"
+                document.getElementById('output_sides_img').src = "images/copier_images/singside_norm.png"
               }
 
               function oneToTwo() {
-                sessionStorage.input_sidedness = '1 -> 2';
+                sessionStorage.input_sidedness = '1';
+                sessionStorage.output_sidedness = '2';
                 document.getElementById('sides').innerHTML = '1 -> 2';
+                document.getElementById('input_sides_img').src = "images/copier_images/singside_norm.png"
+                document.getElementById('output_sides_img').src = "images/copier_images/doubleside.png"
               }
 
               function twoToTwo() {
-                sessionStorage.input_sidedness = '2 -> 2';
+                sessionStorage.input_sidedness = '2';
+                sessionStorage.output_sidedness = '2';
                 document.getElementById('sides').innerHTML = '2 -> 2';
+                document.getElementById('input_sides_img').src = "images/copier_images/doubleside.png"
+                document.getElementById('output_sides_img').src = "images/copier_images/doubleside.png"
               }
             </script>
             <a onclick="oneToOne()">1 -> 1</a>
@@ -295,7 +312,10 @@
           </div>
         </div><br>
       </div>
-      <img src="images/copier images/singside_norm.png" id="output_sides_img">
+      <row>
+        <img src="images/copier_images/singside_norm.png" id="input_sides_img">
+        <img src="images/copier_images/singside_norm.png" id="output_sides_img">
+      </row>
     </td>
   </tr>
   <tr>
@@ -319,16 +339,19 @@
               function TrayA() {
                 sessionStorage.current_bin = "A";
                 document.getElementById('bin').innerHTML = 'Tray A';
+                document.getElementById('bin_img').src = "images/copier_images/copier_trayA.png";
               }
 
               function TrayB() {
                 sessionStorage.current_bin = "B";
                 document.getElementById('bin').innerHTML = 'Tray B';
+                document.getElementById('bin_img').src = "images/copier_images/copier_trayB.png";
               }
 
               function TrayC() {
                 sessionStorage.current_bin = "C";
                 document.getElementById('bin').innerHTML = 'Tray C';
+                document.getElementById('bin_img').src = "images/copier_images/copier_trayC.png";
               }
             </script>
             <a onclick="TrayA()">Tray A</a>
@@ -360,25 +383,30 @@
             <script>
               function None() {
                 sessionStorage.separator_page = false;
+                sessionStorage.separator_bin = "None";
                 document.getElementById('sep').innerHTML = 'None';
+                document.getElementById('separator_page_img').src = "";
               }
 
               function Tray_A() {
                 sessionStorage.separator_page = true;
                 sessionStorage.separator_bin = "A";
                 document.getElementById('sep').innerHTML = 'Tray A';
+                document.getElementById('separator_page_img').src = "images/copier_images/copier_trayA.png";
               }
 
               function Tray_B() {
                 sessionStorage.separator_page = true;
                 sessionStorage.separator_bin = "B";
                 document.getElementById('sep').innerHTML = 'Tray B';
+                document.getElementById('separator_page_img').src = "images/copier_images/copier_trayB.png";
               }
 
               function Tray_C() {
                 sessionStorage.separator_page = true;
                 sessionStorage.separator_bin = "C";
                 document.getElementById('sep').innerHTML = 'Tray C';
+                document.getElementById('separator_page_img').src = "images/copier_images/copier_trayC.png";
               }
             </script>
             <a onclick="None()">None</a>
@@ -388,7 +416,7 @@
           </div>
         </div><br>
       </div>
-      <img src="images/copier_images/separator_page.png" id="separator_page_img">
+      <img src="" id="separator_page_img">
     </td>
   </tr>
   </table>
@@ -398,13 +426,7 @@
     <table style="width:100%">
       <tr>
         <td>
-          <button type="button" id="scan">Scan</button>
-        </td>
-        <td>
-          <button type="button" id="settings">Settings</button>
-        </td>
-        <td>
-          <button type="button" id="print" onclick="location.href='print.html'">Print</button>
+          <button type="button" id="print" onclick="location.href='print.html'">Print Preview</button>
         </td>
       </tr>
     </table>
