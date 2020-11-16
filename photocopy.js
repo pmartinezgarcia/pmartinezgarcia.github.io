@@ -30,3 +30,58 @@ function pressNumPad(num) {
     break;
   }
 }
+
+function displayPreview(numPages, imageFolder, pagesPerSide) {
+    return;
+}
+
+function displayPrintSettings() {
+    
+    var brightnessTxtElement = document.getElementById("brightness_txt");
+    
+    if (sessionStorage.brightness == 0) {
+        brightnessTxtElement.innerHTML = "Normal";
+    } else if (sessionStorage.brightness == -1) {
+        brightnessTxtElement.innerHTML = "Dark";
+    } else if (sessionStorage.brightness == 1) {
+        brightnessTxtElement.innerHTML = "Bright";
+
+    }
+    return;
+}
+
+
+if (!sessionStorage.brightness) {
+    sessionStorage.setItem("brightness", 0);
+}
+
+if (!sessionStorage.current_bin) {
+    sessionStorage.current_bin = "A";
+}
+
+if (!sessionStorage.num_copies) {
+    sessionStorage.num_copies = 1;
+}
+
+if (!sessionStorage.separator_page) {
+    sessionStorage.separator_page = false;
+}
+
+if (!sessionStorage.separator_bin) {
+    sessionStorage.separator_bin = "A";
+}
+
+if (!sessionStorage.input_sidedness) {
+    sessionStorage.input_sidedness = 0;
+}
+
+if (!sessionStorage.output_sidedness) {
+    sessionStorage.output_sidedness = 0;
+}
+
+if (!sessionStorage.output_sides) {
+    sessionStorage.output_sides = 0;
+}
+
+var scanButton = document.getElementById("scan");
+scanButton.addEventListener("click", displayPrintSettings);
