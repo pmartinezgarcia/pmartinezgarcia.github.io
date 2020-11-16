@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    .slidecontainer {
+      width: 100%;
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 25px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+
+    .slider:hover {
+      opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: black;
+      cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: black;
+      cursor: pointer;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .numpad {
+      background-color: gray;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      height: 25px;
+      width: 50px;
+      margin-top: 3px
+    }
+
+    .column {
+      float: left;
+      width: 25%;
+      padding: 10px;
+    }
+
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+
+    .dropbtn {
+      background-color: white;
+      color: black;
+      padding: 3px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .dropbtn:hover,
+    .dropbtn:focus {
+      background-color: gray;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      overflow: auto;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown a:hover {
+      background-color: #ddd;
+    }
+
+    .show {
+      display: block;
+    }
+
+    td {
+      text-align: center;
+    }
+
+    img {
+      width: 30%;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid;
+      width: 200px;
+      height: 100px;
+    }
+
+    button {
+      padding: 20px;
+    }
+  </style>
+  <title>Copy</title>
+</head>
+
+<body>
+  <h1>Copier Settings</h1>
+  <hr>
+  <div style="float:left" id="settings">
+    <table style="width:70%;border: 1px solid black">
+      <tr>
+        <th colspan="2">Select Proper Settings</th>
+      </tr>
+      <tr>
+        <td># Copies:</td>
+        <td>
+          <script>
+            function pressNumPad(num) {
+              let current = document.getElementById("accountid").value
+              if (current.length == 4) {
+                switch (num) {
+                  case -1:
+                    document.getElementById("accountid").value = current.slice(0, -1);
+                    break;
+                  case -2:
+                    window.location.href = "print.html"; //subject to change
+                    break;
+                }
+                return;
+              }
+              switch (num) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 0:
+                  document.getElementById("accountid").value = current + num;
+                  break;
+                case -1:
+                  document.getElementById("accountid").value = current.slice(0, -1);
+                  break;
+                case -2:
+                  window.location.href = "print.html"; // subject to change
+                  break;
+              }
+            }
+          </script>
+
+          <form>
+            <input id="accountid" type="number" onKeyDown="return false">
+
+            <input class="numpad" type="button" value="7" onclick="pressNumPad(7)">
+            <input class="numpad" type="button" value="8" onclick="pressNumPad(8)">
+            <input class="numpad" type="button" value="9" onclick="pressNumPad(9)">
+            <br>
+            <input class="numpad" type="button" value="4" onclick="pressNumPad(4)">
+            <input class="numpad" type="button" value="5" onclick="pressNumPad(5)">
+            <input class="numpad" type="button" value="6" onclick="pressNumPad(6)">
+            <br>
+            <input class="numpad" type="button" value="1" onclick="pressNumPad(1)">
+            <input class="numpad" type="button" value="2" onclick="pressNumPad(2)">
+            <input class="numpad" type="button" value="3" onclick="pressNumPad(3)">
+            <br>
+            <input class="numpad" type="button" value="←" onclick="pressNumPad(-1)">
+            <input class="numpad" type="button" value="0" onclick="pressNumPad(0)">
+            <br>
+          </form>
+  </div>
+  </td>
+  </tr>
+  <tr>
+    <td>Brightness:</td>
+    <td>
+      <div id="brightness_txt">
+        <div class="slidecontainer">
+          <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+          <p><span id="demo"></span></p>
+        </div>
+
+        <script>
+          // Source: https://www.w3schools.com/howto/howto_js_rangeslider.asp
+          var slider = document.getElementById("myRange");
+          var output = document.getElementById("demo");
+          output.innerHTML = slider.value;
+          slider.oninput = function () {
+            output.innerHTML = this.value;
+          }
+        </script>
+        <img src="images/copier images/singside_norm.png" id="brightness_img">
+    </td>
+  </tr>
+  <tr>
+
+    <td>Sides Per Page:</td>
+    <td>
+      <div id="sides_per_page_txt">
+        <script>
+          //Source: https://www.w3schools.com/howto/howto_js_dropdown.asp
+          function myFunction3() {
+            document.getElementById("myDropdown3").classList.toggle("show");
+          }
+          window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+              var dropdowns = document.getElementsByClassName("dropdown-content");
+              var i;
+              for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                }
+              }
+            }
+          }
+        </script>
+        <div class="dropdown">
+          <button onclick="myFunction3()" class="dropbtn">Select</button>
+          <div id="myDropdown3" class="dropdown-content">
+            <a>One Side</a>
+            <a>Two Sides</a>
+          </div>
+        </div><br>
+      </div>
+      <img src="images/copier images/singside_norm.png" id="output_sides_img">
+    </td>
+  </tr>
+  <tr>
+    <td>Bin:</td>
+    <td>
+      <div id="bin_txt">
+        <script>
+          /* When the user clicks on the button, 
+                                toggle between hiding and showing the dropdown content */
+          function myFunction4() {
+            document.getElementById("myDropdown4").classList.toggle("show");
+          }
+        </script>
+        <div class="dropdown">
+          <button onclick="myFunction4()" class="dropbtn">Select</button>
+          <div id="myDropdown4" class="dropdown-content">
+            <a>Tray A</a>
+            <a>Tray B</a>
+            <a>Tray C</a>
+          </div>
+        </div><br>
+      </div>
+      <img src="images/copier_images/copier_trayA.png" id="bin_img">
+    </td>
+  </tr>
+  <tr>
+    <td>Separator Page:</td>
+    <td>
+      <div id="separator_page_txt">
+        <script>
+          /* When the user clicks on the button, 
+                                    toggle between hiding and showing the dropdown content */
+          function myFunction5() {
+            document.getElementById("myDropdown5").classList.toggle("show");
+          }
+        </script>
+        <div class="dropdown">
+          <button onclick="myFunction5()" class="dropbtn">Select</button>
+          <div id="myDropdown5" class="dropdown-content">
+            <a>None</a>
+            <a>Tray A</a>
+            <a>Tray B</a>
+            <a>Tray C</a>
+          </div>
+        </div><br>
+      </div>
+      <img src="images/copier_images/separator_page.png" id="separator_page_img">
+    </td>
+  </tr>
+  </table>
+  </div>
+
+  <div>
+    <table style="width:100%">
+      <tr>
+        <td>
+          <button type="button" id="scan">Scan</button>
+        </td>
+        <td>
+          <button type="button" id="settings">Settings</button>
+        </td>
+        <td>
+          <button type="button" id="print">Print</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <script src="photocopy.js"></script>
+</body>
+
+</html>
