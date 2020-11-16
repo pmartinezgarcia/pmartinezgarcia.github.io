@@ -240,7 +240,7 @@
   </tr>
   <tr>
 
-    <td>Sides Per Page:</td>
+    <td>Sides:</td>
     <td>
       <div id="sides_per_page_txt">
         <script>
@@ -268,18 +268,30 @@
           <button onclick="myFunction3()" class="dropbtn"> </button>
           <div id="myDropdown3" class="dropdown-content">
             <script>
-              function oneSide() {
-                sessionStorage.input_sidedness = 1;
-                document.getElementById('sides').innerHTML = 'One Side';
+              function oneToOne() {
+                sessionStorage.input_sidedness = '1 -> 1';
+                document.getElementById('sides').innerHTML = '1 -> 1';
               }
 
-              function twoSide() {
-                sessionStorage.input_sidedness = 2;
-                document.getElementById('sides').innerHTML = 'Two Sides';
+              function twoToOne() {
+                sessionStorage.input_sidedness = '2 -> 1';
+                document.getElementById('sides').innerHTML = '2 -> 1';
+              }
+
+              function oneToTwo() {
+                sessionStorage.input_sidedness = '1 -> 2';
+                document.getElementById('sides').innerHTML = '1 -> 2';
+              }
+
+              function twoToTwo() {
+                sessionStorage.input_sidedness = '2 -> 2';
+                document.getElementById('sides').innerHTML = '2 -> 2';
               }
             </script>
-            <a onclick="oneSide()">One Side</a>
-            <a onclick="twoSide()">Two Sides</a>
+            <a onclick="oneToOne()">1 -> 1</a>
+            <a onclick="twoToOne()">2 -> 1</a>
+            <a onclick="oneToTwo()">1 -> 2</a>
+            <a onclick="twoToTwo()">2 -> 2</a>
           </div>
         </div><br>
       </div>
